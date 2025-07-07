@@ -195,5 +195,3 @@ python app/main.py
 For discussions and contributions, open an issue or join our [Discord community]() (optional link).
 
 ---
-
-⚡ Let me know if you would like to generate the initial **code scaffold with these folders** so you can begin development immediately with Ollama integration and local testing.
