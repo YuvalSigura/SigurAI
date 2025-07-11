@@ -3,11 +3,7 @@ import importlib
 
 class Executor:
     def __init__(self):
-        """
-        Executor להרצת משימות בפועל:
-        - קריאה לפונקציות פנימיות אם קיימות.
-        - ביצוע פקודות Shell.
-        """
+        """Executor להרצת משימות בפועל"""
         pass
 
     def execute(self, planned_tasks):
@@ -20,6 +16,10 @@ class Executor:
 
             elif task["type"] == "shell":
                 result = self._execute_shell(task["command"])
+                results.append(result)
+
+            elif task["type"] == "powershell":
+                result = self._execute_powershell(task["command"])
                 results.append(result)
 
             elif task["type"] == "not_implemented":
@@ -35,9 +35,7 @@ class Executor:
         return results
 
     def _execute_shell(self, command):
-        """
-        מריץ פקודת Shell ומחזיר פלט ותוצאה
-        """
+        """מריץ פקודת CMD"""
         try:
             print(f"[EXEC] Running: {command}")
             completed_process = subprocess.run(command, shell=True, text=True, capture_output=True)
@@ -55,16 +53,36 @@ class Executor:
             print(f"[EXCEPTION] {e}")
             return {"status": "exception", "error": str(e), "command": command}
 
-    def _execute_function(self, function_name, params):
-        """
-        מנסה לייבא את הפונקציה מ-app/tools או app/utils ולהפעיל אותה עם פרמטרים
-        """
+    def _execute_powershell(self, command):
+        """מריץ פקודת PowerShell"""
         try:
-            # דוגמה: נניח שהפונקציה קיימת במודול בשם 'tools.<function_name>'
-            module_name = f"SigurAI.app.tools.{function_name}"
-            module = importlib.import_module(module_name)
+            print(f"[PS EXEC] Running: {command}")
+            completed_process = subprocess.run(
+                ["powershell", "-Command", command],
+                text=True,
+                capture_output=True
+            )
+            output = completed_process.stdout.strip()
+            error = completed_process.stderr.strip()
 
+            if completed_process.returncode == 0:
+                print(f"[PS SUCCESS] {output}")
+                return {"status": "success", "output": output, "command": command}
+            else:
+                print(f"[PS ERROR] {error}")
+                return {"status": "error", "error": error, "command": command}
+
+        except Exception as e:
+            print(f"[PS EXCEPTION] {e}")
+            return {"status": "exception", "error": str(e), "command": command}
+
+    def _execute_function(self, function_name, params):
+        """מנסה לייבא ולהפעיל פונקציה פנימית"""
+        try:
+            module_name = f"app.tools.{function_name}"  # תיקון בהתאם למבנה שלך
+            module = importlib.import_module(module_name)
             func = getattr(module, function_name)
+
             print(f"[EXEC] Calling function: {function_name} with params: {params}")
             result = func(**params)
 
@@ -90,6 +108,7 @@ class Executor:
 if __name__ == "__main__":
     planned_tasks = [
         {"type": "shell", "command": "echo Hello from SigurAI"},
+        {"type": "powershell", "command": "Get-Process | Select-Object -First 3"},
         {"type": "function", "function_name": "create_virtualenv", "params": {"path": "venv_test"}},
         {"type": "not_implemented", "details": {"predicate": "do", "object": "something"}}
     ]

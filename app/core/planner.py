@@ -1,8 +1,7 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-from utils  import matcher
-from utils.db_manager import load_powershell_commands, load_cmd_commands
+# app/core/planner.py
+
+from app.utils.matcher import match_description_to_command
+from app.utils.db_manager import load_powershell_commands, load_cmd_commands
 
 class Planner:
     def __init__(self):

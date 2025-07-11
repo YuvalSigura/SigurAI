@@ -36,6 +36,24 @@ class DBManager:
         with open(self.tasks_history_file, "w", encoding="utf-8") as f:
             json.dump(tasks, f, indent=4)
 
+# ✅ פונקציות גישה לבסיסי הנתונים של הפקודות:
+def load_powershell_commands():
+    db_folder = Path(__file__).resolve().parent.parent / "db"
+    file_path = db_folder / "powershell_commands.json"
+    if not file_path.exists():
+        print(f"[ERROR] Missing {file_path}")
+        return []
+    with open(file_path, "r", encoding="utf-8") as f:
+        return json.load(f)["powershell_commands"]
+
+def load_cmd_commands():
+    db_folder = Path(__file__).resolve().parent.parent / "db"
+    file_path = db_folder / "cmd_commands.json"
+    if not file_path.exists():
+        print(f"[ERROR] Missing {file_path}")
+        return []
+    with open(file_path, "r", encoding="utf-8") as f:
+        return json.load(f)["cmd_commands"]
 
 if __name__ == "__main__":
     db = DBManager()
