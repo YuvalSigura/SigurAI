@@ -1,8 +1,10 @@
+from utils.matcher import match_description_to_command
+from utils.db_manager import load_powershell_commands, load_cmd_commands
+
 class Planner:
     def __init__(self):
         """
-        יכיל Matching Rules לזיהוי משימות והמרה לפעולות ביצוע.
-        ניתן להרחיב את הכללים בהתאם לצרכים שלך.
+        Matching rules for direct structured tasks.
         """
         self.rules = [
             {
@@ -23,15 +25,15 @@ class Planner:
                 "action": "shell",
                 "command_template": "git clone {object}"
             },
-            # תוכל להוסיף כאן כללים נוספים בהמשך
         ]
+
+        # Load command DBs once
+        self.powershell_commands = load_powershell_commands()
+        self.cmd_commands = load_cmd_commands()
 
     def plan(self, parsed_tasks):
         """
-        קבלת הפלט מה-Parser:
-        [{"predicate": "create", "object": "a Python virtual environment"}, ...]
-        ומחזירה רשימת משימות מוכנות לביצוע:
-        [{"type": "function", "function_name": "create_virtualenv", "params": {...}}, ...]
+        Plan tasks from parsed_tasks using structured rules and fallback to matcher for CLI.
         """
         planned_tasks = []
 
@@ -46,7 +48,7 @@ class Planner:
                         planned_tasks.append({
                             "type": "function",
                             "function_name": rule["function_name"],
-                            "params": {"raw_object": task["object"]}  # בהמשך נוכל לנתח פרמטרים נוספים
+                            "params": {"raw_object": task["object"]}
                         })
                     elif rule["action"] == "shell":
                         cmd = rule["command_template"].format(object=task["object"])
@@ -58,7 +60,24 @@ class Planner:
                     break
 
             if not matched:
-                # ברירת מחדל: החזר פקודה כ-not-implemented או הצג למשתמש
+                # Use matcher fallback
+                ps_match = match_description_to_command(task["object"], self.powershell_commands)
+                cmd_match = match_description_to_command(task["object"], self.cmd_commands)
+
+                if ps_match:
+                    planned_tasks.append({
+                        "type": "powershell",
+                        "command": ps_match
+                    })
+                    matched = True
+                elif cmd_match:
+                    planned_tasks.append({
+                        "type": "cmd",
+                        "command": cmd_match
+                    })
+                    matched = True
+
+            if not matched:
                 planned_tasks.append({
                     "type": "not_implemented",
                     "details": task
@@ -66,11 +85,12 @@ class Planner:
 
         return planned_tasks
 
-
 if __name__ == "__main__":
     parsed_tasks = [
         {"predicate": "Create", "object": "a Python virtual environment"},
-        {"predicate": "install", "object": "numpy"}
+        {"predicate": "install", "object": "numpy"},
+        {"predicate": "show", "object": "all running processes"},
+        {"predicate": "display", "object": "ip configuration"}
     ]
 
     planner = Planner()
