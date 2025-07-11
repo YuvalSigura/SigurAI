@@ -1,0 +1,240 @@
+[
+    {
+        "user_input": "Create an new world",
+        "parsed_tasks": [
+            {
+                "predicate": "Create",
+                "object": "an new world"
+            }
+        ],
+        "planned_tasks": [
+            {
+                "type": "not_implemented",
+                "details": {
+                    "predicate": "Create",
+                    "object": "an new world"
+                }
+            }
+        ],
+        "executed_at": "2025-07-11T15:35:48.179476",
+        "results": [
+            "[NOT IMPLEMENTED] Task: {'predicate': 'Create', 'object': 'an new world'}"
+        ]
+    },
+    {
+        "user_input": "Create a Python virtual environment",
+        "parsed_tasks": [
+            {
+                "predicate": "Create",
+                "object": "a Python virtual environment"
+            }
+        ],
+        "planned_tasks": [
+            {
+                "type": "function",
+                "function_name": "create_virtualenv",
+                "params": {
+                    "raw_object": "a Python virtual environment"
+                }
+            }
+        ],
+        "executed_at": "2025-07-11T15:37:31.512388",
+        "results": [
+            {
+                "status": "error",
+                "error": "[ERROR] Module for function 'create_virtualenv' not found.",
+                "function": "create_virtualenv"
+            }
+        ]
+    },
+    {
+        "user_input": "Create a Python virtual environment",
+        "parsed_tasks": [
+            {
+                "predicate": "Create",
+                "object": "a Python virtual environment"
+            }
+        ],
+        "planned_tasks": [
+            {
+                "type": "function",
+                "function_name": "create_virtualenv",
+                "params": {
+                    "raw_object": "a Python virtual environment"
+                }
+            }
+        ],
+        "executed_at": "2025-07-11T15:37:35.071137",
+        "results": [
+            {
+                "status": "error",
+                "error": "[ERROR] Module for function 'create_virtualenv' not found.",
+                "function": "create_virtualenv"
+            }
+        ]
+    },
+    {
+        "user_input": "create a Python virtual enviroment",
+        "parsed_tasks": [
+            {
+                "predicate": "create",
+                "object": "a Python virtual enviroment"
+            }
+        ],
+        "planned_tasks": [
+            {
+                "type": "not_implemented",
+                "details": {
+                    "predicate": "create",
+                    "object": "a Python virtual enviroment"
+                }
+            }
+        ],
+        "executed_at": "2025-07-11T15:38:18.067886",
+        "results": [
+            "[NOT IMPLEMENTED] Task: {'predicate': 'create', 'object': 'a Python virtual enviroment'}"
+        ]
+    },
+    {
+        "user_input": "create a Python virtual environment",
+        "parsed_tasks": [
+            {
+                "predicate": "create",
+                "object": "a Python virtual environment"
+            }
+        ],
+        "planned_tasks": [
+            {
+                "type": "function",
+                "function_name": "create_virtualenv",
+                "params": {
+                    "raw_object": "a Python virtual environment"
+                }
+            }
+        ],
+        "executed_at": "2025-07-11T15:38:48.620584",
+        "results": [
+            {
+                "status": "error",
+                "error": "[ERROR] Module for function 'create_virtualenv' not found.",
+                "function": "create_virtualenv"
+            }
+        ]
+    },
+    {
+        "user_input": "echo Hello from SigurAI",
+        "parsed_tasks": [],
+        "planned_tasks": [],
+        "executed_at": "2025-07-11T15:44:36.858641",
+        "results": []
+    },
+    {
+        "user_input": "& C:/Users/yuval/AppData/Local/Microsoft/WindowsApps/python3.13.exe c:/Users/yuval/OneDrive/Hamsa/\u05de\u05e1\u05de\u05db\u05d9\u05dd/SigurAI/app/main.py",
+        "parsed_tasks": [],
+        "planned_tasks": [],
+        "executed_at": "2025-07-11T16:14:31.644256",
+        "results": []
+    },
+    {
+        "user_input": "Show all running processes",
+        "parsed_tasks": [
+            {
+                "predicate": "Show",
+                "object": "all running processes"
+            }
+        ],
+        "planned_tasks": [
+            {
+                "type": "not_implemented",
+                "details": {
+                    "predicate": "Show",
+                    "object": "all running processes"
+                }
+            }
+        ],
+        "executed_at": "2025-07-11T16:15:12.233355",
+        "results": [
+            "[NOT IMPLEMENTED] Task: {'predicate': 'Show', 'object': 'all running processes'}"
+        ]
+    },
+    {
+        "user_input": "Display IP configuration",
+        "parsed_tasks": [
+            {
+                "predicate": "Display",
+                "object": "IP configuration"
+            }
+        ],
+        "planned_tasks": [
+            {
+                "type": "not_implemented",
+                "details": {
+                    "predicate": "Display",
+                    "object": "IP configuration"
+                }
+            }
+        ],
+        "executed_at": "2025-07-11T16:15:38.209607",
+        "results": [
+            "[NOT IMPLEMENTED] Task: {'predicate': 'Display', 'object': 'IP configuration'}"
+        ]
+    },
+    {
+        "user_input": "Show all running processes",
+        "parsed_tasks": [
+            {
+                "predicate": "Show",
+                "object": "all running processes"
+            }
+        ],
+        "planned_tasks": [
+            {
+                "type": "not_implemented",
+                "details": {
+                    "predicate": "Show",
+                    "object": "all running processes"
+                }
+            }
+        ],
+        "executed_at": "2025-07-11T16:16:43.145864",
+        "results": [
+            "[NOT IMPLEMENTED] Task: {'predicate': 'Show', 'object': 'all running processes'}"
+        ]
+    },
+    {
+        "user_input": "& C:/Users/yuval/AppData/Local/Microsoft/WindowsApps/python3.13.exe c:/Users/yuval/OneDrive/Hamsa/\u05de\u05e1\u05de\u05db\u05d9\u05dd/SigurAI/app/core/planner.py",
+        "parsed_tasks": [],
+        "planned_tasks": [],
+        "executed_at": "2025-07-11T16:17:32.615986",
+        "results": []
+    },
+    {
+        "user_input": "& C:/Users/yuval/AppData/Local/Microsoft/WindowsApps/python3.13.exe c:/Users/yuval/OneDrive/Hamsa/\u05de\u05e1\u05de\u05db\u05d9\u05dd/SigurAI/app/main.py",
+        "parsed_tasks": [],
+        "planned_tasks": [],
+        "executed_at": "2025-07-11T16:17:42.620646",
+        "results": []
+    },
+    {
+        "user_input": "Show all running processes",
+        "parsed_tasks": [
+            {
+                "predicate": "Show",
+                "object": "all running processes"
+            }
+        ],
+        "planned_tasks": [
+            {
+                "type": "not_implemented",
+                "details": {
+                    "predicate": "Show",
+                    "object": "all running processes"
+                }
+            }
+        ],
+        "executed_at": "2025-07-11T16:17:46.650814",
+        "results": [
+            "[NOT IMPLEMENTED] Task: {'predicate': 'Show', 'object': 'all running processes'}"
+        ]
+    }
+]
