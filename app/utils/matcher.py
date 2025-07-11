@@ -1,6 +1,6 @@
 # utils/matcher.py
 from difflib import get_close_matches
-
+import json
 
 def match_description_to_command(user_input, commands_list):
     """
@@ -20,17 +20,24 @@ def match_description_to_command(user_input, commands_list):
     
     return None
 
-
 # Example usage (to test in your local environment):
 if __name__ == "__main__":
-    import json
-
     # Load PowerShell commands DB for test
     with open("app/db/powershell_commands.json", "r", encoding="utf-8") as f:
-        commands_list = json.load(f)["commands"]
+        powershell_commands = json.load(f)["powershell_commands"]
 
-    user_input = "Show all running processes"
-    matched_command = match_description_to_command(user_input, commands_list)
+    # Load CMD commands DB for test
+    with open("app/db/cmd_commands.json", "r", encoding="utf-8") as f:
+        cmd_commands = json.load(f)["cmd_commands"]
 
-    print(f"User Input: {user_input}")
-    print(f"Matched Command: {matched_command}")
+    user_input_ps = "Show all running processes"
+    matched_command_ps = match_description_to_command(user_input_ps, powershell_commands)
+
+    print(f"User Input: {user_input_ps}")
+    print(f"Matched PowerShell Command: {matched_command_ps}")
+
+    user_input_cmd = "Display IP configuration"
+    matched_command_cmd = match_description_to_command(user_input_cmd, cmd_commands)
+
+    print(f"User Input: {user_input_cmd}")
+    print(f"Matched CMD Command: {matched_command_cmd}")
