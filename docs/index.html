@@ -14,16 +14,23 @@
       margin: 0;
       padding: 0;
     }
-    header {
-      background-color: #151821;
-      padding: 1.5rem;
-      display: flex;
-      text-align: center;
-      justify-content: space-between;
-    }
-    header img {
-      height: 40px;
-    }
+   header {
+  background-color: #151821;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center; /* מיישר פריטים אנכית במרכז */
+  justify-content: space-between; /* מפזר פריטים לרוחב (לוגו בצד אחד, טקסט באמצע, אם יש עוד פריטים אז בצד השני) */
+}
+
+header img {
+  height: 40px;
+}
+
+/* כללים חדשים לטקסט */
+header span {
+  flex-grow: 1; /* מאפשר ל-span לתפוס את כל השטח הפנוי */
+  text-align: center; /* מיישר את התוכן הטקסטואלי בתוך ה-span למרכז */
+}
     .container {
       padding: 3rem 1rem;
       max-width: 800px;
