@@ -88,3 +88,14 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
 });
+
+
+const textureLoader = new THREE.TextureLoader();
+const bgTexture = textureLoader.load('../images/office-guy.png'); // עדכן לשם הקובץ אם שונה
+
+const bgMaterial = new THREE.MeshBasicMaterial({ map: bgTexture });
+const bgGeometry = new THREE.PlaneGeometry(12, 6.75); // יחס 16:9
+const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial);
+bgMesh.position.z = -1.5; // מאחורי הבועות
+scene.add(bgMesh);
+
