@@ -1,0 +1,88 @@
+/* style.css for SigurAI stealth landing page */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #0f1117;
+  color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #151821;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+header img {
+  height: 40px;
+}
+
+header span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #a0a9f1;
+}
+
+.container {
+  padding: 3rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.about {
+  margin-top: 3rem;
+  border-top: 1px solid #333;
+  padding-top: 2rem;
+}
+
+.about h2 {
+  color: #a0a9f1;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 0.9rem;
+  color: #666;
+  border-top: 1px solid #222;
+  margin-top: 4rem;
+}
+
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .container {
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .about h2 {
+    font-size: 1.5rem;
+  }
+}
