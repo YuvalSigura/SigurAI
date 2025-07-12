@@ -52,3 +52,44 @@ document.addEventListener("DOMContentLoaded", () => {
     observer.observe(item);
   });
 });
+import * as THREE from 'three';
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 1000);
+camera.position.z = 5;
+
+const renderer = new THREE.WebGLRenderer({
+  canvas: document.getElementById('three-bg'),
+  alpha: true
+});
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+
+// Light
+const ambient = new THREE.AmbientLight(0xffffff, 0.8);
+scene.add(ambient);
+
+// Texture loader
+const loader = new THREE.TextureLoader();
+const texture = loader.load('../images/icon.png'); // your phoenix
+
+// Plane geometry with texture
+const geometry = new THREE.PlaneGeometry(3, 3);
+const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
+const logoMesh = new THREE.Mesh(geometry, material);
+scene.add(logoMesh);
+
+// Animate rotation
+function animate() {
+  requestAnimationFrame(animate);
+  logoMesh.rotation.z += 0.002;
+  renderer.render(scene, camera);
+}
+animate();
+
+// Handle window resize
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
