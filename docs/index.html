@@ -2,60 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SigurAI</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" type="image/png" href="images/icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SigurAI – Scene 1</title>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.157.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.157.0/examples/jsm/"
+    }
+  }
+  </script>
+  <style>
+    body { margin: 0; overflow: hidden; background: #111; }
+    canvas { display: block; }
+  </style>
 </head>
 <body>
-  <canvas id="three-bg"></canvas>
-  <header>
-    <img src="images/sigurai_text_logo.png" alt="SigurAI Text Logo" class="header-logo" />
-  </header>
-
-  <main>
-    <section class="hero-section">
-      <div class="hero-content">
-        <h1>Welcome to SigurAI</h1>
-        <p class="tagline">A local-first, autonomous assistant engineered for real-world execution.</p>
-        <p class="description">SigurAI thinks like an engineer – and acts like one.</p>
-      </div>
-      <div class="hero-image">
-        <img src="images/icon.png" alt="SigurAI Phoenix Logo" /> </div>
-    </section>
-
-    <section class="features-section">
-      <div class="container">
-        <h2>What Makes SigurAI Unique?</h2>
-        <div class="feature-grid">
-          <div class="feature-item">
-            <h3>Autonomous Core</h3>
-            <p>Engineered to operate independently, making real-time decisions and executing complex tasks without constant human oversight.</p>
-          </div>
-          <div class="feature-item">
-            <h3>Local-First Design</h3>
-            <p>Prioritizes on-device processing for enhanced privacy, security, and low-latency performance, minimizing reliance on cloud services.</p>
-          </div>
-          <div class="feature-item">
-            <h3>Engineering Mindset</h3>
-            <p>Built with a problem-solving approach, it analyzes, designs, and implements solutions just like a human engineer would.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="container about">
-      <h2>About</h2>
-      <p>This website is currently in stealth mode.<br>
-        More information and technical demonstrations will be revealed soon.<br>
-        If you're here, you're probably meant to be.</p>
-    </section>
-  </main>
-
-  <footer>
-    &copy; 2025 SigurAI. All rights reserved.
-  </footer>
-
-  <script src="js/interactivity.js"></script>
+  <canvas id="canvas"></canvas>
+  <script type="module" src="scene1.js"></script>
 </body>
 </html>
