@@ -25,68 +25,71 @@ body {
 /* Header Styles */
 header {
   background-color: var(--header-bg);
-  padding: 1.2rem 1.5rem; /* Adjusted padding */
+  padding: 1.5rem; /* Slightly more padding */
   display: flex;
   align-items: center;
-  justify-content: center; /* Center the logo */
-  box-shadow: 0 2px 5px var(--shadow-medium); /* Stronger shadow */
-  position: sticky; /* Sticky header */
+  justify-content: center; /* Centered the logo */
+  box-shadow: 0 4px 10px var(--shadow-medium); /* Stronger shadow */
+  position: sticky;
   top: 0;
-  z-index: 1000; /* Ensure header stays on top */
+  z-index: 1000;
 }
 
-.header-logo { /* Renamed for clarity */
-  height: 45px; /* Slightly larger logo for desktop */
-  transition: height 0.3s ease-in-out; /* Smooth transition for responsiveness */
+.header-logo {
+  height: 60px; /* Made header logo significantly larger */
+  transition: height 0.3s ease-in-out;
+  filter: drop-shadow(0 0 8px var(--highlight-color)); /* Added a subtle glow */
 }
 
 /* Main Container & Typography */
 .container {
-  padding: 3rem 1rem;
-  max-width: 900px; /* Increased max-width for better content display */
+  padding: 4rem 1.5rem; /* Increased padding */
+  max-width: 900px;
   margin: 0 auto;
   text-align: center;
 }
 
 h1 {
-  font-size: 3rem; /* Larger heading */
+  font-size: 3.5rem; /* Even larger heading */
   margin-bottom: 1rem;
   color: #ffffff;
-  letter-spacing: 0.05rem; /* Slightly more spaced letters */
-  text-shadow: 0 2px 4px var(--shadow-light);
+  letter-spacing: 0.08rem; /* More spaced letters */
+  text-shadow: 0 4px 8px var(--shadow-medium); /* Stronger text shadow */
+  animation: fadeInDown 1s ease-out; /* Added initial animation */
 }
 
 h2 {
-  font-size: 2.2rem;
+  font-size: 2.5rem; /* Larger h2 */
   margin-bottom: 1.5rem;
   color: var(--highlight-color);
   position: relative;
-  display: inline-block; /* Allows underline effect */
-  padding-bottom: 0.5rem;
+  display: inline-block;
+  padding-bottom: 0.7rem; /* More padding for underline */
+  animation: fadeIn 1s ease-out forwards; /* Added initial animation */
 }
 
-h2::after { /* Underline effect for H2 */
+h2::after {
   content: '';
   position: absolute;
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
+  width: 80px; /* Longer underline */
+  height: 4px; /* Thicker underline */
   background-color: var(--highlight-color);
   border-radius: 2px;
 }
 
 h3 {
-  font-size: 1.6rem;
+  font-size: 1.8rem; /* Larger h3 */
   color: #ffffff;
   margin-bottom: 0.8rem;
 }
 
 p {
-  font-size: 1.15rem; /* Slightly larger body text */
+  font-size: 1.2rem; /* Larger body text */
   color: var(--secondary-text);
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem; /* More line spacing */
 }
 
 /* Hero Section */
@@ -95,41 +98,46 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4rem 1rem;
-  background: linear-gradient(135deg, #1a202c 0%, #0f1117 100%); /* Subtle gradient */
+  padding: 5rem 1.5rem; /* More padding */
+  background: linear-gradient(135deg, #1a202c 0%, #0f1117 100%);
   text-align: center;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid var(--border-color); /* Separator */
 }
 
 .hero-content {
-  z-index: 1; /* Ensure content is above any background effects */
-  max-width: 700px;
+  z-index: 1;
+  max-width: 800px; /* Wider content */
 }
 
 .hero-section .tagline {
-  font-size: 1.5rem;
+  font-size: 1.7rem; /* Larger tagline */
   font-weight: bold;
   color: var(--highlight-color);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
+  animation: fadeInUp 1s ease-out 0.3s forwards; /* Animated tagline */
+  opacity: 0; /* Hidden initially for animation */
 }
 
 .hero-section .description {
-  font-size: 1.25rem;
+  font-size: 1.35rem; /* Larger description */
   color: var(--text-color);
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem; /* More space */
+  animation: fadeInUp 1s ease-out 0.6s forwards; /* Animated description */
+  opacity: 0; /* Hidden initially for animation */
 }
 
 .hero-image {
-  margin-top: 2rem;
+  margin-top: 3rem; /* More space below content */
   z-index: 1;
 }
 
 .hero-image img {
-  max-width: 250px; /* Size for the brand logo in hero */
+  max-width: 300px; /* Larger hero logo */
   height: auto;
-  filter: drop-shadow(0 0 15px var(--highlight-color)); /* Glow effect */
-  animation: pulse 2s infinite alternate; /* Subtle pulse animation */
+  filter: drop-shadow(0 0 25px var(--highlight-color)); /* Stronger glow */
+  animation: pulse 2.5s infinite alternate ease-in-out; /* Slower, smoother pulse */
 }
 
 @keyframes pulse {
@@ -138,36 +146,45 @@ p {
     opacity: 0.8;
   }
   to {
-    transform: scale(1.05);
+    transform: scale(1.08); /* Stronger pulse */
     opacity: 1;
   }
 }
 
 /* Features Section */
 .features-section {
-  background-color: #1a202c; /* Darker background for distinction */
-  padding: 4rem 1rem;
+  background-color: #1a202c;
+  padding: 5rem 1.5rem; /* More padding */
+  border-bottom: 1px solid var(--border-color); /* Separator */
 }
 
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
-  gap: 2rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Slightly wider min width */
+  gap: 2.5rem; /* More gap */
+  margin-top: 3rem; /* More space */
 }
 
 .feature-item {
   background-color: #2c3447;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px var(--shadow-medium);
-  text-align: left; /* Align text within feature boxes */
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  padding: 2.5rem; /* More padding */
+  border-radius: 12px; /* Slightly more rounded corners */
+  box-shadow: 0 6px 15px var(--shadow-medium); /* Stronger shadow */
+  text-align: left;
+  transition: transform 0.4s ease, background-color 0.4s ease, box-shadow 0.4s ease; /* Smoother transitions */
+  opacity: 0; /* Hidden initially for JS animation */
+  transform: translateY(20px); /* Start slightly below for animation */
+}
+
+.feature-item.fade-in { /* Class added by JS */
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .feature-item:hover {
-  transform: translateY(-5px); /* Lift effect on hover */
+  transform: translateY(-8px); /* Stronger lift effect */
   background-color: #3a455a;
+  box-shadow: 0 10px 25px var(--shadow-medium); /* More prominent shadow on hover */
 }
 
 .feature-item h3 {
@@ -176,52 +193,88 @@ p {
 }
 
 .feature-item p {
-  font-size: 1rem;
+  font-size: 1.05rem; /* Slightly adjusted for feature items */
   color: var(--secondary-text);
 }
 
 /* About Section */
 .about {
-  margin-top: 4rem; /* Increased margin for separation */
+  margin-top: 5rem; /* Increased margin */
   border-top: 1px solid var(--border-color);
-  padding-top: 3rem;
+  padding-top: 4rem; /* Increased padding */
 }
 
 /* Footer Styles */
 footer {
   text-align: center;
-  padding: 2.5rem 0; /* More padding for footer */
-  font-size: 0.95rem;
+  padding: 3rem 0; /* More padding */
+  font-size: 1rem; /* Slightly larger font */
   color: var(--footer-color);
   border-top: 1px solid var(--border-color);
-  margin-top: 5rem;
-  background-color: var(--header-bg); /* Consistent with header */
+  margin-top: 6rem; /* More margin */
+  background-color: var(--header-bg);
+}
+
+/* Initial fade-in animations for hero content */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
+  .header-logo {
+    height: 50px;
+  }
+
   h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
 
   h2 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   .hero-section {
-    padding: 3rem 1rem;
+    padding: 4rem 1rem;
   }
 
   .hero-section .tagline {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 
   .hero-section .description {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 
   .hero-image img {
-    max-width: 200px;
+    max-width: 250px;
   }
 }
 
@@ -231,15 +284,15 @@ footer {
   }
 
   .header-logo {
-    height: 40px; /* Smaller logo for mobile */
+    height: 45px;
   }
 
   h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   h2 {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
   }
 
   p {
@@ -247,10 +300,10 @@ footer {
   }
 
   .container {
-    padding: 2rem 1rem;
+    padding: 2.5rem 1rem;
   }
 
   .feature-item {
-    padding: 1.5rem;
+    padding: 1.8rem;
   }
 }
