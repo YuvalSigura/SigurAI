@@ -6,57 +6,6 @@
   <title>SigurAI</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" type="image/png" href="images/icon.png" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #0f1117;
-      color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-   header {
-  background-color: #151821;
-  padding: 1.5rem;
-  display: flex;
-  align-items: center; /* מיישר פריטים אנכית במרכז */
-  justify-content: center; /* מפזר פריטים לרוחב (לוגו בצד אחד, טקסט באמצע, אם יש עוד פריטים אז בצד השני) */
-}
-
-header img {
-  height: 40px;
-}
-
-/* כללים חדשים לטקסט */
-header span {
-  flex-grow: 1; /* מאפשר ל-span לתפוס את כל השטח הפנוי */
-  text-align: center; /* מיישר את התוכן הטקסטואלי בתוך ה-span למרכז */
-}
-    .container {
-      padding: 3rem 1rem;
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-    p {
-      font-size: 1.1rem;
-      color: #ccc;
-    }
-    .about {
-      margin-top: 3rem;
-      border-top: 1px solid #333;
-      padding-top: 2rem;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem 0;
-      font-size: 0.9rem;
-      color: #666;
-    }
-  </style>
 </head>
 <body>
   <header>
@@ -64,8 +13,12 @@ header span {
     <span><strong>SigurAI</strong></span>
   </header>
 
+  <!-- Optional Banner Section -->
+  <section class="banner">
+    <img src="images/banner.jpg" alt="SigurAI Banner" />
+  </section>
+
   <main class="container">
-    <link rel="icon" type="image/png" href="images/firstver.png"/>
     <h1>Welcome to SigurAI</h1>
     <p>A local-first, autonomous assistant engineered for real-world execution.<br>
        SigurAI thinks like an engineer – and acts like one.</p>
@@ -81,5 +34,7 @@ header span {
   <footer>
     &copy; 2025 SigurAI. All rights reserved.
   </footer>
+
+  <script src="js/interactivity.js"></script>
 </body>
 </html>
