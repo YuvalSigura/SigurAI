@@ -12,13 +12,32 @@
     }
   }
   </script>
-  <style>
-    body { margin: 0; overflow: hidden; background: #111; }
-    canvas { display: block; }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <canvas id="canvas"></canvas>
+
+  <!-- ✅ מודל Sketchfab כרקע -->
+  <div class="sketchfab-wrapper">
+    <iframe
+      title="Working Hard"
+      frameborder="0"
+      allowfullscreen
+      mozallowfullscreen="true"
+      webkitallowfullscreen="true"
+      allow="autoplay; fullscreen; xr-spatial-tracking"
+      xr-spatial-tracking
+      execution-while-out-of-viewport
+      execution-while-not-rendered
+      web-share
+      src="https://sketchfab.com/models/08da5a7aeb0c416480aad8639341f034/embed?autospin=1&transparent=1&dnt=1">
+    </iframe>
+  </div>
+
+  <!-- ✅ קנבס של הבועות -->
+  <canvas id="three-canvas"></canvas>
+
+  <!-- ✅ קוד JS -->
   <script type="module" src="js/scene1.js"></script>
+
 </body>
 </html>
