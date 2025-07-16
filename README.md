@@ -5,7 +5,7 @@
 
 ---
 
-![SigurAI Banner](docs/images)
+![SigurAI Banner](docs/images/brand.png)
 
 **SigurAI** is a **local-first autonomous assistant** leveraging **Ollama + LLMs** to:
 
