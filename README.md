@@ -1,11 +1,10 @@
-# SigurAI
-***# SigurAI
 
-## 🚀 Autonomous Local AI Assistant with Function Generation and Execution
+
+## 🚀 Autonomous Local AI Assistant with Function Generation and Execution ##
 
 ---
 
-![SigurAI Banner](docs/images/brand.png)
+(docs/images/brand.png)
 
 **SigurAI** is a **local-first autonomous assistant** leveraging **Ollama + LLMs** to:
 
