@@ -3,8 +3,9 @@
 ## 🚀 Autonomous Local AI Assistant with Function Generation and Execution ##
 
 ---
-
-![SigurAI Banner](docs/images/brand.png)  
+<div align="center">
+  <img src="docs/images/brand.png" alt="SigurAI Banner" width="300"/>
+</div>
 
 **SigurAI** is a **local-first autonomous assistant** leveraging **Ollama + LLMs** to:
 
