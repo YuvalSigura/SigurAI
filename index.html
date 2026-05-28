@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIGURAI — Conscious Decisions for AI Compute</title>
+  <meta name="description" content="SIGURAI builds AI compute governance systems designed to save energy, preserve quality, and control execution before expensive compute happens." />
+
+  <style>
+    :root {
+      --bg: #02030a;
+      --bg2: #050817;
+      --text: #f5f7ff;
+      --muted: rgba(245, 247, 255, 0.66);
+      --soft: rgba(245, 247, 255, 0.12);
+      --line: rgba(180, 205, 255, 0.18);
+      --blue: #66e7ff;
+      --violet: #9b7cff;
+      --green: #8dffbf;
+      --gold: #ffd27d;
+      --danger: #ff6c9a;
+      --glass: rgba(255, 255, 255, 0.055);
+      --glass2: rgba(255, 255, 255, 0.09);
+      --shadow: 0 30px 90px rgba(0,0,0,0.55);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(102, 231, 255, 0.18), transparent 32%),
+        radial-gradient(circle at 85% 10%, rgba(155, 124, 255, 0.16), transparent 34%),
+        radial-gradient(circle at 50% 90%, rgba(141, 255, 191, 0.09), transparent 38%),
+        linear-gradient(180deg, #02030a 0%, #050817 48%, #02030a 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(circle at center, black, transparent 75%);
+      pointer-events: none;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      opacity: 0.12;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    #cosmos {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+    }
+
+    .orb-glow {
+      position: fixed;
+      width: 680px;
+      height: 680px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(102,231,255,0.22), rgba(155,124,255,0.08) 45%, transparent 70%);
+      filter: blur(15px);
+      top: -240px;
+      right: -220px;
+      z-index: -1;
+      pointer-events: none;
+      animation: drift 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift {
+      from { transform: translate3d(0, 0, 0) scale(1); }
+      to { transform: translate3d(-80px, 80px, 0) scale(1.14); }
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(180deg, rgba(2,3,10,0.82), rgba(2,3,10,0.38));
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04)),
+        radial-gradient(circle at 30% 20%, rgba(102,231,255,0.5), transparent 50%);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 0 38px rgba(102,231,255,0.16);
+      overflow: hidden;
+    }
+
+    .logo-box img {
+      width: 90%;
+      height: 90%;
+      object-fit: contain;
+      display: block;
+      filter: invert(1);
+    }
+
+    .logo-fallback {
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      font-size: 20px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+    }
+
+    .brand-text strong {
+      letter-spacing: 0.16em;
+      font-size: 14px;
+    }
+
+    .brand-text span {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nav-links a {
+      color: rgba(245,247,255,0.72);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .pill {
+      color: #02030a !important;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      padding: 11px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      box-shadow: 0 0 35px rgba(102,231,255,0.25);
+    }
+
+    main {
+      position: relative;
+    }
+
+    .hero {
+      min-height: calc(100vh - 78px);
+      display: grid;
+      align-items: center;
+      padding: 70px 0 80px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      width: max-content;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 13px;
+      border: 1px solid rgba(102,231,255,0.28);
+      border-radius: 999px;
+      color: rgba(245,247,255,0.82);
+      background: rgba(102,231,255,0.07);
+      box-shadow: inset 0 0 18px rgba(102,231,255,0.06);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .pulse {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(141,255,191,0.75);
+      animation: pulse 1.7s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(141,255,191,0.6); }
+      70% { box-shadow: 0 0 0 14px rgba(141,255,191,0); }
+      100% { box-shadow: 0 0 0 0 rgba(141,255,191,0); }
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(52px, 8vw, 116px);
+      line-height: 0.9;
+      letter-spacing: -0.085em;
+      max-width: 880px;
+    }
+
+    .grad {
+      background: linear-gradient(135deg, #ffffff 0%, #aef6ff 34%, #bca8ff 68%, #fff0c4 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 23px);
+      line-height: 1.55;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text);
+      text-decoration: none;
+      background: rgba(255,255,255,0.065);
+      backdrop-filter: blur(12px);
+      transition: 0.22s ease;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.105);
+      border-color: rgba(255,255,255,0.28);
+    }
+
+    .btn.primary {
+      color: #02030a;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      box-shadow: 0 18px 55px rgba(102,231,255,0.22);
+      border: none;
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 560px;
+      border-radius: 38px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.105), rgba(255,255,255,0.035)),
+        radial-gradient(circle at 50% 10%, rgba(102,231,255,0.14), transparent 44%);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      background:
+        radial-gradient(circle at 50% 50%, transparent 0 24%, rgba(102,231,255,0.12) 24.5%, transparent 25.4%),
+        radial-gradient(circle at 50% 50%, transparent 0 39%, rgba(155,124,255,0.11) 39.5%, transparent 40.4%),
+        radial-gradient(circle at 50% 50%, transparent 0 55%, rgba(141,255,191,0.10) 55.5%, transparent 56.4%);
+      animation: rotate 36s linear infinite;
+      z-index: -1;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent, rgba(2,3,10,0.72));
+      z-index: -1;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg) scale(1.12); }
+      to { transform: rotate(360deg) scale(1.12); }
+    }
+
+    .system-core {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+    }
+
+    .core-orb {
+      width: 154px;
+      height: 154px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 35% 28%, #fff, #aef6ff 19%, #466cff 52%, #080a1b 74%);
+      box-shadow:
+        0 0 55px rgba(102,231,255,0.55),
+        0 0 150px rgba(155,124,255,0.32);
+      animation: breathe 4.8s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); filter: saturate(1); }
+      50% { transform: scale(1.08); filter: saturate(1.35); }
+    }
+
+    .orbit-node {
+      position: absolute;
+      width: 96px;
+      height: 96px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.075);
+      border: 1px solid rgba(255,255,255,0.16);
+      backdrop-filter: blur(12px);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 12px;
+      color: rgba(255,255,255,0.82);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      box-shadow: 0 18px 55px rgba(0,0,0,0.25);
+    }
+
+    .n1 { top: 56px; left: 52%; transform: translateX(-50%); }
+    .n2 { top: 170px; right: 52px; }
+    .n3 { bottom: 120px; right: 78px; }
+    .n4 { bottom: 54px; left: 48%; transform: translateX(-50%); }
+    .n5 { bottom: 140px; left: 60px; }
+    .n6 { top: 160px; left: 46px; }
+
+    .metrics {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 22px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .metric {
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(0,0,0,0.24);
+      border: 1px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(18px);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 20px;
+      letter-spacing: -0.04em;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 5px;
+      color: rgba(255,255,255,0.56);
+      font-size: 12px;
+    }
+
+    section {
+      padding: 92px 0;
+      position: relative;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 34px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 68px);
+      line-height: 0.98;
+      letter-spacing: -0.07em;
+      max-width: 740px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      border-radius: 30px;
+      padding: 26px;
+      min-height: 246px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.035));
+      border: 1px solid rgba(255,255,255,0.13);
+      box-shadow: 0 20px 70px rgba(0,0,0,0.22);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: auto -30% -50% -30%;
+      height: 140px;
+      background: radial-gradient(circle, rgba(102,231,255,0.18), transparent 64%);
+      pointer-events: none;
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: rgba(102,231,255,0.12);
+      border: 1px solid rgba(102,231,255,0.24);
+      margin-bottom: 30px;
+      font-size: 22px;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 25px;
+      letter-spacing: -0.045em;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 14px 0 0;
+      font-size: 15px;
+    }
+
+    .wide {
+      display: grid;
+      grid-template-columns: 0.84fr 1.16fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .big-panel {
+      min-height: 520px;
+      border-radius: 38px;
+      border: 1px solid rgba(255,255,255,0.13);
+      background:
+        radial-gradient(circle at 25% 20%, rgba(102,231,255,0.16), transparent 34%),
+        linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.035));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+      padding: 30px;
+    }
+
+    .big-panel h2 {
+      margin: 0;
+      font-size: clamp(36px, 5vw, 72px);
+      line-height: 0.94;
+      letter-spacing: -0.075em;
+      max-width: 620px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .big-panel p {
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 540px;
+      position: relative;
+      z-index: 2;
+      margin-top: 22px;
+    }
+
+    .constellation {
+      display: grid;
+      gap: 14px;
+    }
+
+    .lane {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 18px 20px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.11);
+      min-height: 76px;
+    }
+
+    .lane span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .lane strong {
+      font-size: 17px;
+      letter-spacing: -0.02em;
+    }
+
+    .status {
+      font-size: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,0.13);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.78);
+    }
+
+    .status.live {
+      color: #00160b;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      border: none;
+      font-weight: 900;
+    }
+
+    .status.next {
+      color: #171000;
+      background: linear-gradient(135deg, var(--gold), #fff3c9);
+      border: none;
+      font-weight: 900;
+    }
+
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .chip {
+      padding: 10px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.13);
+      background: rgba(255,255,255,0.055);
+      color: rgba(255,255,255,0.76);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .final {
+      text-align: center;
+      padding: 120px 0 110px;
+    }
+
+    .final-logo {
+      width: min(460px, 82vw);
+      margin: 0 auto 34px;
+      padding: 28px;
+      border-radius: 34px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: var(--shadow);
+    }
+
+    .final-logo img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: invert(1);
+    }
+
+    .wordmark {
+      font-size: clamp(54px, 11vw, 132px);
+      line-height: 0.86;
+      letter-spacing: -0.095em;
+      font-weight: 950;
+      margin: 0;
+    }
+
+    .final p {
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.6;
+      max-width: 760px;
+      margin: 26px auto 0;
+    }
+
+    footer {
+      padding: 28px 0 44px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.52);
+      font-size: 13px;
+    }
+
+    footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .wide {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        min-height: 520px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 16px;
+      }
+
+      .nav-links a:not(.pill) {
+        display: none;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .wrap {
+        width: min(100% - 26px, 1180px);
+      }
+
+      .hero {
+        padding-top: 44px;
+      }
+
+      .hero-card {
+        min-height: 500px;
+        border-radius: 28px;
+      }
+
+      .orbit-node {
+        width: 82px;
+        height: 82px;
+        font-size: 10px;
+      }
+
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .metric {
+        padding: 12px 14px;
+      }
+
+      .n2 { right: 20px; }
+      .n3 { right: 24px; }
+      .n5 { left: 22px; }
+      .n6 { left: 18px; }
+
+      section {
+        padding: 70px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="cosmos"></canvas>
+  <div class="noise"></div>
+  <div class="orb-glow"></div>
+
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#">
+        <div class="logo-box">
+          <img src="assets/logo.png" alt="SIGURAI" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+          <span class="logo-fallback" style="display:none;">SA</span>
+        </div>
+        <div class="brand-text">
+          <strong>SIGURAI</strong>
+          <span>Conscious Decisions</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#what">What</a>
+        <a href="#stack">Stack</a>
+        <a href="#future">Now / Next</a>
+        <a class="pill" href="mailto:contact@sigurai.io">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow"><span class="pulse"></span> AI Compute Governance</div>
+
+          <h1>
+            <span class="grad">Conscious Decisions</span><br />
+            for AI Compute
+          </h1>
+
+          <p>
+            SIGURAI is built to reduce unnecessary compute, save energy, and preserve quality
+            by governing the moment before expensive AI execution happens.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#what">Enter the System</a>
+            <a class="btn" href="#stack">See What It Works With</a>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="Interactive decision system visual">
+          <div class="system-core">
+            <div class="core-orb"></div>
+          </div>
+
+          <div class="orbit-node n1">Agent<br />Intent</div>
+          <div class="orbit-node n2">Compute<br />Gate</div>
+          <div class="orbit-node n3">Energy<br />Signal</div>
+          <div class="orbit-node n4">Quality<br />Guard</div>
+          <div class="orbit-node n5">Evidence<br />Trail</div>
+          <div class="orbit-node n6">Decision<br />Core</div>
+
+          <div class="metrics">
+            <div class="metric">
+              <strong>Save</strong>
+              <span>unnecessary energy</span>
+            </div>
+            <div class="metric">
+              <strong>Guard</strong>
+              <span>answer quality</span>
+            </div>
+            <div class="metric">
+              <strong>Trace</strong>
+              <span>every compute decision</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="what">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>The layer before execution.</h2>
+          <p>
+            Not another chatbot. Not another dashboard. SIGURAI is a control surface
+            for deciding what compute deserves to happen.
+          </p>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="icon">⚡</div>
+            <h3>Saves energy</h3>
+            <p>
+              Designed to reduce wasteful model calls, repeated work, unnecessary retries,
+              and excessive agent execution.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">◈</div>
+            <h3>Preserves quality</h3>
+            <p>
+              Decisions are constrained by quality gates, evidence records, and conservative
+              execution boundaries.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">⌁</div>
+            <h3>Records evidence</h3>
+            <p>
+              Every important compute path can become a traceable record: request, decision,
+              runtime call, measurement, and result.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="wrap wide">
+        <div class="big-panel">
+          <h2><span class="grad">Works with the local AI stack.</span></h2>
+          <p>
+            Built around local-first execution, model gateways, GPU measurement,
+            and controlled experiments.
+          </p>
+
+          <div class="stack">
+            <span class="chip">Ollama</span>
+            <span class="chip">Python</span>
+            <span class="chip">NVML</span>
+            <span class="chip">NVIDIA GPUs</span>
+            <span class="chip">Local LLMs</span>
+            <span class="chip">Agent workflows</span>
+            <span class="chip">GitHub Pages</span>
+            <span class="chip">Krinon Decisions</span>
+            <span class="chip">Limen</span>
+          </div>
+        </div>
+
+        <div class="constellation">
+          <div class="lane">
+            <div>
+              <strong>Ollama runtime path</strong><br />
+              <span>Local model execution through a governed gateway.</span>
+            </div>
+            <span class="status live">WORKS NOW</span>
+          </div>
+
+          <div class="lane">
+            <div>
+              <strong>NVML energy observation</strong><br />
+              <span>GPU energy counter contracts and clean measurement windows.</span>
+            </div>
+            <span class="status live">WORKS NOW</span>
+          </div>
+
+          <div class="lane">
+            <div>
+              <strong>Result normalization</strong><br />
+              <span>Stable result shape before UI, reports, and evidence.</span>
+            </div>
+            <span class="status live">WORKS NOW</span>
+          </div>
+
+          <div class="lane">
+            <div>
+              <strong>Artifact binding</strong><br />
+              <span>Runs write job result, runtime calls, and manifests.</span>
+            </div>
+            <span class="status live">WORKS NOW</span>
+          </div>
+
+          <div class="lane">
+            <div>
+              <strong>OpenAI-compatible runtimes</strong><br />
+              <span>Future adapter path for compatible model servers.</span>
+            </div>
+            <span class="status next">NEXT</span>
+          </div>
+
+          <div class="lane">
+            <div>
+              <strong>vLLM / Triton / cluster labs</strong><br />
+              <span>Future scale-out control and multi-machine experiments.</span>
+            </div>
+            <span class="status next">NEXT</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="future">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>From local compute to governed intelligence.</h2>
+          <p>
+            The goal is simple: AI systems should not spend power, time, and money
+            without a conscious decision layer.
+          </p>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="icon">☉</div>
+            <h3>Agents</h3>
+            <p>
+              Model calls, tool calls, retries, branches, verifiers, and workflow steps.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">☍</div>
+            <h3>Runtimes</h3>
+            <p>
+              Local models today. Open runtimes, inference servers, and accelerated stacks next.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">☌</div>
+            <h3>Machines</h3>
+            <p>
+              From one workstation to a lab of overlapping machines, workloads, and GPUs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="wrap">
+        <div class="final-logo">
+          <img src="assets/logo.png" alt="SIGURAI logo" onerror="this.parentElement.style.display='none';" />
+        </div>
+
+        <h2 class="wordmark grad">SIGURAI</h2>
+        <p>
+          Save energy. Preserve quality. Govern compute before it burns.
+        </p>
+
+        <div class="hero-actions" style="justify-content:center;">
+          <a class="btn primary" href="mailto:contact@sigurai.io">Request Access</a>
+          <a class="btn" href="#stack">View Stack</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="year"></span> SIGURAI.IO</span>
+      <span>Conscious Decisions for AI Compute</span>
+    </div>
+  </footer>
+
+  <script type="module">
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
+
+    const canvas = document.getElementById("cosmos");
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
+    camera.position.z = 36;
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    const starGeo = new THREE.BufferGeometry();
+    const starCount = 900;
+    const positions = new Float32Array(starCount * 3);
+
+    for (let i = 0; i < starCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 120;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 80;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 80;
+    }
+
+    starGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+    const starMat = new THREE.PointsMaterial({
+      color: 0xbfefff,
+      size: 0.055,
+      transparent: true,
+      opacity: 0.72
+    });
+
+    const stars = new THREE.Points(starGeo, starMat);
+    scene.add(stars);
+
+    const core = new THREE.Mesh(
+      new THREE.SphereGeometry(2.1, 48, 48),
+      new THREE.MeshBasicMaterial({ color: 0x66e7ff, transparent: true, opacity: 0.45 })
+    );
+    group.add(core);
+
+    const rings = [];
+    const ringColors = [0x66e7ff, 0x9b7cff, 0x8dffbf, 0xffd27d];
+
+    for (let i = 0; i < 4; i++) {
+      const curve = new THREE.EllipseCurve(
+        0, 0,
+        5.2 + i * 2.8,
+        2.4 + i * 1.35,
+        0,
+        Math.PI * 2,
+        false,
+        0
+      );
+
+      const points = curve.getPoints(180);
+      const geo = new THREE.BufferGeometry().setFromPoints(
+        points.map(p => new THREE.Vector3(p.x, p.y, 0))
+      );
+
+      const mat = new THREE.LineBasicMaterial({
+        color: ringColors[i],
+        transparent: true,
+        opacity: 0.18
+      });
+
+      const ring = new THREE.LineLoop(geo, mat);
+      ring.rotation.x = 0.9 + i * 0.16;
+      ring.rotation.y = 0.18 + i * 0.25;
+      ring.rotation.z = i * 0.8;
+      group.add(ring);
+      rings.push(ring);
+    }
+
+    const planets = [];
+
+    for (let i = 0; i < 8; i++) {
+      const planet = new THREE.Mesh(
+        new THREE.SphereGeometry(0.22 + Math.random() * 0.18, 24, 24),
+        new THREE.MeshBasicMaterial({
+          color: ringColors[i % ringColors.length],
+          transparent: true,
+          opacity: 0.85
+        })
+      );
+
+      planet.userData = {
+        radius: 5.2 + (i % 4) * 2.8,
+        speed: 0.002 + Math.random() * 0.003,
+        phase: Math.random() * Math.PI * 2,
+        yScale: 0.46 + Math.random() * 0.16
+      };
+
+      group.add(planet);
+      planets.push(planet);
+    }
+
+    const mouse = { x: 0, y: 0 };
+
+    window.addEventListener("mousemove", (event) => {
+      mouse.x = (event.clientX / window.innerWidth - 0.5) * 2;
+      mouse.y = (event.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    function resize() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    let t = 0;
+
+    function animate() {
+      t += 1;
+
+      stars.rotation.y += 0.00055;
+      stars.rotation.x += 0.00018;
+
+      group.rotation.y += 0.0012;
+      group.rotation.x = mouse.y * 0.08;
+      group.rotation.z = mouse.x * 0.045;
+
+      core.scale.setScalar(1 + Math.sin(t * 0.025) * 0.045);
+
+      rings.forEach((ring, i) => {
+        ring.rotation.z += 0.0015 + i * 0.00045;
+      });
+
+      planets.forEach((planet) => {
+        const u = planet.userData;
+        const a = t * u.speed + u.phase;
+        planet.position.x = Math.cos(a) * u.radius;
+        planet.position.y = Math.sin(a) * u.radius * u.yScale;
+        planet.position.z = Math.sin(a * 0.7) * 1.8;
+      });
+
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
